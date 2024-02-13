@@ -160,12 +160,14 @@
                     <img src="${image}" />
                     <p class="pt-mono-regular" style="color: var(--ts-static-gray-900)">${link}</p>
                 `;
-                var link = document.createElement('a');
-                link.download = "QRCode.png";
-                link.href = image;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                var download_link = document.createElement('a');
+                let filename = link.split('/').pop();
+                console.log(filename);
+                download_link.download = `${filename}.png`;
+                download_link.href = image;
+                document.body.appendChild(download_link);
+                download_link.click();
+                document.body.removeChild(download_link);
             }
         }
     </script>
