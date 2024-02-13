@@ -24,7 +24,7 @@
     <meta property="twitter:image" content="https://qrcode.dhsa.ndhu.me/og.jpeg" />
 
     <!-- Icon -->
-    <link rel="icon" href="/ndhusa-logo.png" sizes="any" />
+    <link rel="icon" href="./ndhusa-logo.png" sizes="any" />
 
     <!-- 核心：Tocas UI -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/4.2.5/tocas.min.css" />
@@ -51,7 +51,7 @@
         <div class="ts-container is-very-narrow">
             <div class="ts-box">
                 <div class="ts-content">
-                    <img src="/ndhusa-logo.png" alt="NDHUSA" class="ts-image"
+                    <img src="./ndhusa-logo.png" alt="NDHUSA" class="ts-image"
                         style="width: 100px; height: 100px; margin: 0 auto; display: block; margin-bottom: 20px;">
                     <div class="ts-header is-huge is-heavy is-center-aligned">產生一個 QR code</div>
                     <p class="ts-text is-description is-center-aligned">取得帶有東華學生會 Logo QR code 的小幫手。</p>
@@ -136,7 +136,7 @@
 
                 var logoImg = new Image();
                 // logoImg.crossOrigin = "anonymous"; // Set crossOrigin to anonymous
-                logoImg.src = "/ndhusa-logo.png"; // Make sure the server supports CORS
+                logoImg.src = "./ndhusa-logo.png"; // Make sure the server supports CORS
                 logoImg.onload = function () {
                     var logoSize = canvas.width * 0.2;
                     var logoPosition = (canvas.width - logoSize) / 2;
