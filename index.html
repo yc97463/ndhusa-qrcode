@@ -1,0 +1,175 @@
+<!DOCTYPE html class="is-medium">
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Primary meta Tags -->
+    <title>產生一個 QR code</title>
+    <meta name="title" content="產生一個 QR code" />
+    <meta name="description" content="取得帶有東華學生會 Logo QR code 的小幫手。" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="產生一個 QR code" />
+    <meta property="og:description" content="取得帶有東華學生會 Logo QR code 的小幫手。" />
+    <meta property="og:image" content="https://qrcode.dhsa.ndhu.me/og.jpeg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="產生一個 QR code" />
+    <meta property="twitter:description" content="取得帶有東華學生會 Logo QR code 的小幫手。" />
+    <meta property="twitter:image" content="https://qrcode.dhsa.ndhu.me/og.jpeg" />
+
+    <!-- Icon -->
+    <link rel="icon" href="/ndhusa-logo.png" sizes="any" />
+
+    <!-- 核心：Tocas UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas/4.2.5/tocas.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas/4.2.5/tocas.min.js"></script>
+
+    <!-- 字體：Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        .pt-mono-regular {
+            font-family: "PT Mono", monospace;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ts-content">
+        <div class="ts-container is-very-narrow">
+            <div class="ts-box">
+                <div class="ts-content">
+                    <img src="/ndhusa-logo.png" alt="NDHUSA" class="ts-image"
+                        style="width: 100px; height: 100px; margin: 0 auto; display: block; margin-bottom: 20px;">
+                    <div class="ts-header is-huge is-heavy is-center-aligned">產生一個 QR code</div>
+                    <p class="ts-text is-description is-center-aligned">取得帶有東華學生會 Logo QR code 的小幫手。</p>
+                    <div class="ts-space"></div>
+                    <fieldset class="ts-fieldset has-top-spaced">
+                        <legend>產生資料</legend>
+                        <div class="ts-grid">
+                            <div class="column is-12-wide">
+                                <div class="ts-text is-label"><label for="link">連結</label></div>
+                                <div class="ts-input has-top-spaced pt-mono-regular">
+                                    <input type="text" id="link"
+                                        placeholder="https://dhsa.ndhu.edu.tw/p/404-4567-321.php">
+                                </div>
+                            </div>
+                            <div class="column is-4-wide">
+                                <div class="ts-text is-label">操作</div>
+                                <div class="ts-input has-top-spaced">
+                                    <button class="ts-button is-fluid" onclick="generateQRCode()">產生一個</button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="result"></div>
+            </div>
+            <div class="ts-space"></div>
+            <div class="ts-space"></div>
+            <div class="is-center-aligned ts-text is-secondary">
+                <p>
+                    由來自 <span class="ts-flag is-taiwan-flag is-small"></span> 臺灣的<a href="https://imych.one" target="_blank">油成</a>所設計，當然還有貢獻者們的愛心❤️。
+                </p>
+                <p>
+                    請盡情地使用、分享或一同改進。 <a class="ts-text is-external-link" href="https://github.com/yc97463/ndhusa-qrcode" target="_blank">GitHub</a>
+                </p>
+            </div>
+            <div class="ts-space"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // 偵測表單是否透過 enter 鍵送出
+        document.getElementById("link").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                generateQRCode();
+            }
+        });
+        function generateQRCode() {
+            let qrcodedivid = 0;
+            let link = document.getElementById("link").value;
+            if (link === "") {
+                return;
+            }
+            document.getElementById("link").value = "";
+            const resultDiv = document.getElementById("result");
+
+            // 在 result 的最上方插入一個新的 div
+            resultDiv.insertAdjacentHTML('afterbegin', `
+            <div class="ts-divider"></div>
+            <details class="ts-content is-secondary is-dense ts-accordion" open>
+                <summary class="pt-mono-regular">${link}</summary>
+                <center>
+                    <div id="qrcode" class="ts-image is-medium" style="background: #FFF; padding: 0.8rem; border-radius: 0.4rem;"></div>
+                </center>
+            </details>
+            `);
+
+            // Generate QR Code directly to the div
+            var qr = new QRCode(`qrcode`, {
+                text: link,
+                width: 1024,
+                height: 1024,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            setTimeout(() => {
+                let qrCodeDiv = document.getElementById(`qrcode`);
+                var canvas = qrCodeDiv.querySelector('canvas');
+                var context = canvas.getContext('2d');
+
+                var logoImg = new Image();
+                // logoImg.crossOrigin = "anonymous"; // Set crossOrigin to anonymous
+                logoImg.src = "/ndhusa-logo.png"; // Make sure the server supports CORS
+                logoImg.onload = function () {
+                    var logoSize = canvas.width * 0.2;
+                    var logoPosition = (canvas.width - logoSize) / 2;
+                    context.drawImage(logoImg, logoPosition, logoPosition, logoSize, logoSize);
+                };
+                // var qrCanvas = document.querySelector('#qrcode canvas');
+                // var image = qrCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            }, 200);
+            setTimeout(() => {
+                saveQRCode(link);
+                qrcodedivid++;
+            }, 250);
+            console.log(qrcodedivid);
+        }
+
+        function saveQRCode(link) {
+            var qrCanvas = document.querySelector(`#qrcode canvas`);
+            if (qrCanvas) {
+                var image = qrCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                document.getElementById("qrcode").innerHTML = `
+                    <img src="${image}" />
+                    <p class="pt-mono-regular">${link}</p>
+                `;
+                var link = document.createElement('a');
+                link.download = "QRCode.png";
+                link.href = image;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
