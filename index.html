@@ -114,7 +114,7 @@
             <details class="ts-content is-secondary is-dense ts-accordion" open>
                 <summary class="pt-mono-regular">${link}</summary>
                 <center>
-                    <div id="qrcode" class="ts-image is-medium" style="background: #FFF; padding: 0.8rem; border-radius: 0.4rem;"></div>
+                    <div id="qrcode" class="ts-image is-medium" style="background: var(--ts-static-gray-50); padding: 0.8rem; border-radius: 0.4rem;"></div>
                 </center>
             </details>
             `);
@@ -158,7 +158,7 @@
                 var image = qrCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
                 document.getElementById("qrcode").innerHTML = `
                     <img src="${image}" />
-                    <p class="pt-mono-regular">${link}</p>
+                    <p class="pt-mono-regular" style="color: var(--ts-static-gray-900)">${link}</p>
                 `;
                 var link = document.createElement('a');
                 link.download = "QRCode.png";
